@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JNB Coin</title>
+  <meta name="description" content="JNB Coin is a BEP-20 compatible standard token project on BNB Chain Mainnet.">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #071014;
+      --panel: #0d1b22;
+      --panel-2: #102630;
+      --line: #24424c;
+      --text: #edf7f8;
+      --muted: #a8c1c6;
+      --accent: #35d0ba;
+      --accent-2: #6fb7ff;
+      --warn: #ffd166;
+      --radius: 8px;
+      --shadow: 0 22px 60px rgba(0, 0, 0, 0.28);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(135deg, rgba(53, 208, 186, 0.10), transparent 34%),
+        linear-gradient(315deg, rgba(111, 183, 255, 0.10), transparent 38%);
+      z-index: -1;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(7, 16, 20, 0.88);
+      backdrop-filter: blur(16px);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 68px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .mark {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(53, 208, 186, 0.55);
+      border-radius: 8px;
+      background: #0b2025;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 14px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      color: var(--muted);
+    }
+
+    .hero {
+      padding: 76px 0 42px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(42px, 7vw, 82px);
+      line-height: 0.95;
+      letter-spacing: 0;
+    }
+
+    .hero-logo {
+      width: clamp(120px, 12vw, 160px);
+      height: clamp(120px, 12vw, 160px);
+      object-fit: contain;
+      display: block;
+      margin: 0 0 20px;
+      border-radius: 50%;
+      filter: drop-shadow(0 18px 38px rgba(53, 208, 186, 0.22));
+    }
+
+    .subtitle {
+      margin: 18px 0 0;
+      max-width: 720px;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 22px);
+    }
+
+    .english {
+      margin-top: 10px;
+      color: #cfe8eb;
+      font-size: 15px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(13, 27, 34, 0.92);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 22px;
+    }
+
+    .label {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .address-box {
+      margin-top: 12px;
+      display: grid;
+      gap: 10px;
+    }
+
+    code.address {
+      display: block;
+      width: 100%;
+      overflow-wrap: anywhere;
+      border: 1px solid rgba(53, 208, 186, 0.28);
+      border-radius: 8px;
+      padding: 12px;
+      background: #061317;
+      color: #dffff9;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    button.copy {
+      width: fit-content;
+      border: 1px solid rgba(53, 208, 186, 0.46);
+      border-radius: 8px;
+      padding: 9px 13px;
+      background: #0c272c;
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    button.copy:hover {
+      border-color: var(--accent);
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .badge {
+      border: 1px solid rgba(111, 183, 255, 0.34);
+      border-radius: 999px;
+      padding: 8px 11px;
+      background: rgba(111, 183, 255, 0.08);
+      color: #d8efff;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    main {
+      padding-bottom: 64px;
+    }
+
+    section {
+      margin-top: 22px;
+      padding: 28px;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: clamp(24px, 3vw, 34px);
+      letter-spacing: 0;
+      line-height: 1.15;
+    }
+
+    p {
+      margin: 0 0 12px;
+      color: var(--muted);
+    }
+
+    .note {
+      border-left: 3px solid var(--accent);
+      padding: 12px 14px;
+      background: rgba(53, 208, 186, 0.08);
+      color: #d6f3f0;
+    }
+
+    .warn {
+      border-left-color: var(--warn);
+      background: rgba(255, 209, 102, 0.08);
+      color: #fff1c9;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .status-card {
+      min-height: 82px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: var(--panel-2);
+    }
+
+    .status-card span {
+      display: block;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #08171c;
+    }
+
+    table {
+      width: 100%;
+      min-width: 620px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 13px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: #d9fbf6;
+      background: #10242b;
+      font-size: 13px;
+    }
+
+    td {
+      color: var(--muted);
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .fact {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 13px;
+      background: #0b1d23;
+    }
+
+    .fact strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .fact span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .docs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .docs li {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #0b1d23;
+      color: var(--muted);
+      overflow-wrap: anywhere;
+    }
+
+    .risk-list {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 34px 0 48px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    @media (max-width: 860px) {
+      .hero-grid,
+      .grid,
+      .facts,
+      .docs {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding-top: 46px;
+      }
+
+      .hero-logo {
+        width: clamp(84px, 28vw, 110px);
+        height: clamp(84px, 28vw, 110px);
+      }
+
+      section {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .wrap {
+        width: min(100% - 20px, 1120px);
+      }
+
+      .nav-links {
+        gap: 10px;
+        font-size: 13px;
+      }
+
+      .hero-card,
+      section {
+        padding: 16px;
+      }
+
+      th,
+      td {
+        padding: 11px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="wrap" aria-label="Primary navigation">
+      <div class="brand"><span class="mark">JNB</span><span>JNB Coin</span></div>
+      <div class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#token">Token</a>
+        <a href="#status">Status</a>
+        <a href="#risk">Risk Notice</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-grid">
+        <div>
+          <img class="hero-logo" src="assets/jnb-logo.png" alt="JNB Coin Logo">
+          <div class="label">BNB Chain Mainnet</div>
+          <h1 id="hero-title">JNB Coin</h1>
+          <p class="subtitle">BNB Chain 기반 BEP-20 호환 표준 토큰 프로젝트</p>
+          <p class="english">A BEP-20 compatible standard token project on BNB Chain.</p>
+          <div class="badges" aria-label="Project status badges">
+            <span class="badge">BNB Chain Mainnet Deployed</span>
+            <span class="badge">BscScan Verified</span>
+            <span class="badge">PancakeSwap V2 Liquidity Supplied</span>
+            <span class="badge">DexScreener Pair Confirmed</span>
+          </div>
+        </div>
+        <aside class="panel hero-card" aria-label="Official contract address">
+          <div class="label">Official Contract Address</div>
+          <div class="address-box">
+            <code class="address" id="contractAddress">0x8c8b392318d606193f972c01be213ef5e94116e7</code>
+            <button class="copy" type="button" data-copy-target="contractAddress">Copy address</button>
+          </div>
+          <p class="note warn" style="margin-top:16px;">공식 컨트랙트 주소는 위 주소만 사용한다. 추가 배포 주소 2개는 Not Official / Do Not Use로 기록되어 있으며, 홈페이지, 커뮤니티, 백서, 유동성 공급, 거래소 신청, 홍보에 사용하지 않는다.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="panel" id="overview">
+      <h2>Project Overview</h2>
+      <p>JNB Coin은 BNB Chain 기반 BEP-20 호환 표준 토큰 프로젝트이다. OpenZeppelin ERC-20 표준 구조를 기반으로 하며, 단순성과 안정성을 우선한다.</p>
+      <p>추가발행, 거래세, 블랙리스트, 리베이스, 자동유동성 기능은 포함하지 않는다.</p>
+    </section>
+
+    <section class="panel" id="token">
+      <h2>Token Information</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Item</th><th>Details</th></tr></thead>
+          <tbody>
+            <tr><td>Token Name</td><td>JNB Coin</td></tr>
+            <tr><td>Symbol</td><td>JNB</td></tr>
+            <tr><td>Network</td><td>BNB Chain Mainnet</td></tr>
+            <tr><td>Standard</td><td>BEP-20 compatible ERC-20</td></tr>
+            <tr><td>Contract Address</td><td>0x8c8b392318d606193f972c01be213ef5e94116e7</td></tr>
+            <tr><td>Total Supply</td><td>1,000,000,000 JNB</td></tr>
+            <tr><td>Decimals</td><td>18</td></tr>
+            <tr><td>Additional Minting</td><td>None</td></tr>
+            <tr><td>Transaction Tax</td><td>None</td></tr>
+            <tr><td>Blacklist</td><td>None</td></tr>
+            <tr><td>Rebase</td><td>None</td></tr>
+            <tr><td>Auto Liquidity</td><td>None</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel" id="status">
+      <h2>Current Status</h2>
+      <div class="grid">
+        <div class="status-card"><span>01</span>Mainnet Deployed</div>
+        <div class="status-card"><span>02</span>BscScan Verified</div>
+        <div class="status-card"><span>03</span>Sourcify Verified</div>
+        <div class="status-card"><span>04</span>Distribution Partially Completed</div>
+        <div class="status-card"><span>05</span>Founder B Pending</div>
+        <div class="status-card"><span>06</span>PancakeSwap V2 Liquidity Supplied</div>
+        <div class="status-card"><span>07</span>JNB/WBNB LP Position Confirmed</div>
+        <div class="status-card"><span>08</span>PancakeSwap Swap JNB Selected</div>
+        <div class="status-card"><span>09</span>PancakeSwap Buy Test Completed</div>
+        <div class="status-card"><span>10</span>PancakeSwap Sell Test Completed</div>
+        <div class="status-card"><span>11</span>DexScreener Pair Confirmed</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Token Distribution</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Category</th><th>Amount</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>JNB Liquidity</td><td>500,000,000 JNB</td><td>Transferred</td></tr>
+            <tr><td>JNB Community</td><td>200,000,000 JNB</td><td>Transferred</td></tr>
+            <tr><td>JNB Operation</td><td>100,000,000 JNB</td><td>Transferred</td></tr>
+            <tr><td>JNB Founder A Remaining</td><td>200,000,000 JNB</td><td>Held</td></tr>
+            <tr><td>Founder B Pending Allocation</td><td>100,000,000 JNB</td><td>Pending</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Founder B 100,000,000 JNB는 지인 창립자 지갑 주소가 확정되기 전까지 기존 사용자 소유 JNB Founder B 계정이나 임시 지갑으로 전송하지 않는다.</p>
+    </section>
+
+    <section class="panel">
+      <h2>PancakeSwap V2 Liquidity Status</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Item</th><th>Details</th></tr></thead>
+          <tbody>
+            <tr><td>DEX</td><td>PancakeSwap</td></tr>
+            <tr><td>Pool Type</td><td>V2</td></tr>
+            <tr><td>Pair</td><td>JNB / WBNB</td></tr>
+            <tr><td>Fee Tier</td><td>0.25%</td></tr>
+            <tr><td>Supplied BNB</td><td>0.035 BNB</td></tr>
+            <tr><td>Supplied JNB</td><td>3,500,000 JNB</td></tr>
+            <tr><td>LP Position</td><td>Confirmed</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>초기 검토안은 0.035 BNB + 350,000,000 JNB였으나, 초기 풀 변동성과 과도한 JNB 공급을 줄이기 위해 실제 적용안은 0.035 BNB + 3,500,000 JNB로 변경하였다.</p>
+      <p>이 변경은 스마트컨트랙트 코드 수정이 아니라 PancakeSwap 유동성 공급 수량 변경이다.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Small Trading Function Test</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Test</th><th>Details</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr><td>BNB -> JNB Buy Test</td><td>0.001 BNB -> approximately 96,985.902 JNB</td><td>Success</td></tr>
+            <tr><td>JNB -> BNB Sell Test</td><td>10,000 JNB -> approximately 0.000112 BNB</td><td>Success</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">이 테스트는 별도 테스트 지갑 JNB Swap Test에서 진행된 소액 기능 테스트이며, 투자 권유, 수익 보장, 가격 상승 보장, 상장 확정의 의미가 아니다.</p>
+    </section>
+
+    <section class="panel">
+      <h2>DexScreener Pair Confirmation</h2>
+      <div class="facts">
+        <div class="fact"><strong>Chain</strong><span>BSC / BNB Chain</span></div>
+        <div class="fact"><strong>DEX</strong><span>PancakeSwap</span></div>
+        <div class="fact"><strong>Pool Type</strong><span>V2</span></div>
+        <div class="fact"><strong>Pair</strong><span>JNB / WBNB</span></div>
+        <div class="fact"><strong>Liquidity</strong><span>approximately $48</span></div>
+        <div class="fact"><strong>Txns</strong><span>12</span></div>
+        <div class="fact"><strong>Buys</strong><span>11</span></div>
+        <div class="fact"><strong>Sells</strong><span>1</span></div>
+        <div class="fact"><strong>Pooled JNB</strong><span>approximately 3,258,379 JNB</span></div>
+        <div class="fact"><strong>Pooled WBNB</strong><span>approximately 0.03760 WBNB</span></div>
+      </div>
+      <p class="note warn">DexScreener의 “This pair has very little liquidity” 경고는 오류가 아니라 초기 소액 유동성 상태 안내이다.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Documents</h2>
+      <ul class="docs">
+        <li>README.md</li>
+        <li>JNB_Coin_PancakeSwap_Liquidity_Record.md</li>
+        <li>JNB_Coin_Trading_Ready_Status.md</li>
+        <li>JNB_Coin_Homepage_Intro.md</li>
+        <li>JNB_Coin_Community_Notice.md</li>
+        <li>JNB_Coin_Whitepaper_Draft.md</li>
+        <li>JNB_Coin_Whitepaper_EN.md</li>
+      </ul>
+    </section>
+
+    <section class="panel" id="risk">
+      <h2>Risk Notice</h2>
+      <ul class="risk-list">
+        <li>This website is not an investment solicitation.</li>
+        <li>JNB Coin is an early-stage project with completed technical deployment and functional testing.</li>
+        <li>Current liquidity is very small initial liquidity.</li>
+        <li>No profit, principal, price increase, exchange listing, or exchange registration is guaranteed.</li>
+        <li>Any token-related decision must be made under each participant’s own judgment and responsibility.</li>
+        <li>If token sales, investor recruitment, presales, reward distribution, exchange listing promotion, or profit-sharing structures are included, professional legal review is required.</li>
+        <li>If the project is operated, promoted, or used for rewards in Korea, virtual asset-related legal risks should be reviewed.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <p>JNB Coin official static homepage draft. No wallet connection, no automatic swap, and no purchase function are included.</p>
+  </footer>
+
+  <script>
+    const button = document.querySelector("[data-copy-target]");
+    if (button) {
+      button.addEventListener("click", async () => {
+        const targetId = button.getAttribute("data-copy-target");
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        try {
+          await navigator.clipboard.writeText(target.textContent.trim());
+          const original = button.textContent;
+          button.textContent = "Copied";
+          window.setTimeout(() => {
+            button.textContent = original;
+          }, 1400);
+        } catch {
+          button.textContent = "Copy unavailable";
+        }
+      });
+    }
+  </script>
+</body>
+</html>
