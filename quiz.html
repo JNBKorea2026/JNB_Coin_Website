@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -69,7 +69,7 @@
       top: 0;
       z-index: 10;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(7, 16, 20, 0.88);
+      background: rgba(7, 16, 20, 0.9);
       backdrop-filter: blur(16px);
     }
 
@@ -97,11 +97,16 @@
       filter: drop-shadow(0 10px 20px rgba(53, 208, 186, 0.18));
     }
 
-    .nav-links {
+    .nav-links,
+    .button-row {
       display: flex;
       flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .nav-links {
       justify-content: flex-end;
-      gap: 14px;
       font-size: 14px;
       color: var(--muted);
     }
@@ -111,7 +116,7 @@
     }
 
     main {
-      padding: 54px 0;
+      padding: 54px 0 28px;
     }
 
     .hero {
@@ -130,7 +135,7 @@
     }
 
     .pad {
-      padding: 22px;
+      padding: 24px;
     }
 
     h1,
@@ -174,22 +179,59 @@
       text-transform: uppercase;
     }
 
-    .facts {
+    .home-button,
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      border: 1px solid rgba(53, 208, 186, 0.46);
+      border-radius: 8px;
+      padding: 11px 15px;
+      background: #0c272c;
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .home-button:hover,
+    button:hover {
+      border-color: var(--accent);
+      text-decoration: none;
+    }
+
+    button.secondary,
+    .home-button.secondary {
+      border-color: rgba(168, 193, 198, 0.32);
+      background: #0b1b21;
+      color: var(--muted);
+    }
+
+    .facts,
+    .quick-notices,
+    .checklist {
       display: grid;
-      gap: 10px;
+      gap: 12px;
       margin-top: 14px;
     }
 
-    .fact {
+    .fact,
+    .quick-notice {
       display: grid;
       gap: 4px;
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 8px;
-      padding: 12px;
+      padding: 13px;
       background: rgba(16, 38, 48, 0.75);
     }
 
-    .fact strong {
+    .quick-notice {
+      border-color: rgba(53, 208, 186, 0.18);
+    }
+
+    .fact strong,
+    .quick-notice strong {
       color: var(--muted);
       font-size: 12px;
       text-transform: uppercase;
@@ -197,6 +239,7 @@
     }
 
     .fact span,
+    .quick-notice span,
     code.address {
       overflow-wrap: anywhere;
       color: var(--text);
@@ -211,55 +254,72 @@
 
     .notice-list li,
     .footer-list li {
-      margin: 8px 0;
+      margin: 9px 0;
     }
 
     .grid {
       display: grid;
-      gap: 18px;
+      gap: 22px;
     }
 
     .question {
-      padding: 18px;
+      padding: 22px;
     }
 
     .question-title {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       align-items: flex-start;
       justify-content: space-between;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
+    }
+
+    .question-title h3 {
+      color: #f5ffff;
     }
 
     .tag {
       border: 1px solid rgba(111, 183, 255, 0.34);
       border-radius: 999px;
-      padding: 4px 9px;
+      padding: 5px 10px;
       color: #cfe8ff;
       font-size: 12px;
       white-space: nowrap;
     }
 
-    .option {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin: 8px 0;
+    .option,
+    .check-row {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: start;
+      gap: 12px;
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 8px;
-      padding: 11px;
       background: rgba(6, 19, 23, 0.58);
+    }
+
+    .option {
+      margin: 10px 0;
+      padding: 13px;
       cursor: pointer;
+    }
+
+    .option:hover,
+    .check-row:hover {
+      border-color: rgba(53, 208, 186, 0.28);
     }
 
     .option input,
     .check-row input {
-      margin-top: 5px;
+      width: 18px;
+      height: 18px;
+      margin: 4px 0 0;
       accent-color: var(--accent);
     }
 
     .option span,
     .check-row span {
+      min-width: 0;
       color: #dbecee;
     }
 
@@ -268,51 +328,25 @@
       flex-wrap: wrap;
       gap: 12px;
       align-items: center;
-      margin-top: 18px;
+      margin-top: 20px;
     }
 
-    button {
-      border: 1px solid rgba(53, 208, 186, 0.46);
-      border-radius: 8px;
-      padding: 11px 15px;
-      background: #0c272c;
-      color: var(--text);
-      cursor: pointer;
-      font-weight: 800;
-    }
-
-    button.secondary {
-      border-color: rgba(168, 193, 198, 0.32);
-      background: #0b1b21;
-      color: var(--muted);
-    }
-
-    button:hover {
-      border-color: var(--accent);
-    }
-
-    .checklist {
-      display: grid;
-      gap: 10px;
-      margin-top: 14px;
+    .confirmation-panel {
+      border-color: rgba(255, 209, 102, 0.28);
+      background: rgba(13, 27, 34, 0.96);
     }
 
     .check-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
-      padding: 11px;
-      background: rgba(16, 38, 48, 0.55);
+      padding: 13px;
+      background: rgba(16, 38, 48, 0.62);
     }
 
     .alert {
       display: none;
-      margin-top: 14px;
+      margin-top: 16px;
       border: 1px solid rgba(255, 209, 102, 0.45);
       border-radius: 8px;
-      padding: 12px;
+      padding: 13px;
       background: rgba(255, 209, 102, 0.10);
       color: #ffe7a4;
       font-weight: 700;
@@ -320,23 +354,31 @@
 
     .result {
       display: none;
-      margin-top: 18px;
-      border: 1px solid rgba(53, 208, 186, 0.38);
+      margin-top: 20px;
+      border: 1px solid rgba(53, 208, 186, 0.46);
       border-radius: 8px;
-      padding: 16px;
-      background: rgba(53, 208, 186, 0.08);
+      padding: 18px;
+      background: rgba(53, 208, 186, 0.10);
     }
 
     .result strong {
       color: var(--text);
     }
 
+    .result-summary {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
     .pass {
       color: var(--ok);
+      font-weight: 900;
     }
 
     .review {
       color: var(--warn);
+      font-weight: 900;
     }
 
     .answers {
@@ -345,19 +387,23 @@
     }
 
     .answer-item {
-      margin-top: 12px;
+      margin-top: 14px;
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 8px;
-      padding: 14px;
+      padding: 16px;
       background: rgba(6, 19, 23, 0.58);
     }
 
     .answer-item.correct {
-      border-color: rgba(142, 243, 197, 0.36);
+      border-color: rgba(142, 243, 197, 0.42);
     }
 
     .answer-item.incorrect {
-      border-color: rgba(255, 139, 139, 0.42);
+      border-color: rgba(255, 139, 139, 0.46);
+    }
+
+    .answer-item p {
+      margin-top: 8px;
     }
 
     .note {
@@ -366,6 +412,10 @@
 
     footer {
       padding: 0 0 42px;
+    }
+
+    footer .button-row {
+      margin-top: 16px;
     }
 
     @media (max-width: 820px) {
@@ -387,18 +437,51 @@
         display: grid;
       }
     }
+
+    @media (max-width: 480px) {
+      .wrap {
+        width: min(100% - 24px, 1120px);
+      }
+
+      main {
+        padding-top: 32px;
+      }
+
+      .pad,
+      .question {
+        padding: 16px;
+      }
+
+      .button-row,
+      .controls {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .home-button,
+      button {
+        width: 100%;
+      }
+
+      .option,
+      .check-row {
+        padding: 12px;
+        gap: 10px;
+      }
+    }
   </style>
 </head>
 <body>
   <header>
     <nav class="wrap">
-      <a class="brand" href="./index.html" aria-label="Back to JNB Coin homepage">
+      <a class="brand" href="./index.html" aria-label="Back to JNB Coin official homepage">
         <img src="assets/jnb-logo.png" alt="JNB Coin logo">
         <span>JNB Coin Quiz</span>
       </a>
       <div class="nav-links">
         <a href="./index.html">Back to Official Homepage</a>
         <a href="#quiz">Quiz</a>
+        <a href="#official-links">Official Links</a>
         <a href="#notices">Notices</a>
       </div>
     </nav>
@@ -407,21 +490,32 @@
   <main class="wrap">
     <section class="hero">
       <div class="panel pad">
-        <div class="label">Static UI Draft</div>
+        <div class="label">Static Educational Draft</div>
         <h1>JNB Global Learn &amp; Quiz Reward</h1>
-        <p class="subtitle">An education and project understanding quiz for JNB Coin official information, wallet security, blockchain basics, BEP-20 basics, reward policy, privacy, and risk notices.</p>
-        <p class="note">This page calculates scores only inside your browser. It does not collect submissions, store answers, connect to wallets, or distribute JNB.</p>
+        <p class="subtitle">A browser-only education quiz for JNB Coin official information, wallet security, blockchain basics, BEP-20 basics, reward policy, privacy, and risk notices.</p>
+        <div class="quick-notices" aria-label="Key quiz safety notices">
+          <div class="quick-notice"><strong>Static Draft</strong><span>This quiz is a static educational draft.</span></div>
+          <div class="quick-notice"><strong>No Data Collection</strong><span>It does not collect personal data or store answers.</span></div>
+          <div class="quick-notice"><strong>No Wallet Action</strong><span>It does not connect to wallets or send transactions.</span></div>
+          <div class="quick-notice"><strong>No Automatic Reward</strong><span>It does not distribute rewards automatically.</span></div>
+          <div class="quick-notice"><strong>No Guarantee</strong><span>Passing this quiz does not guarantee reward distribution.</span></div>
+        </div>
+        <div class="button-row" style="margin-top:18px;">
+          <a class="home-button" href="./index.html">Back to Official Homepage</a>
+          <a class="home-button secondary" href="#quiz">Start Quiz</a>
+        </div>
       </div>
 
-      <aside class="panel pad">
-        <h2>Project Information</h2>
+      <aside class="panel pad" id="official-links">
+        <h2>Official Links</h2>
         <div class="facts">
           <div class="fact"><strong>Project Name</strong><span>JNB Coin</span></div>
           <div class="fact"><strong>Symbol</strong><span>JNB</span></div>
           <div class="fact"><strong>Network</strong><span>BNB Chain Mainnet</span></div>
+          <div class="fact"><strong>Official Homepage</strong><span>https://jnbkorea2026.github.io/JNB_Coin_Website/</span></div>
           <div class="fact"><strong>Official Contract Address</strong><code class="address">0x8c8b392318d606193f972c01be213ef5e94116e7</code></div>
-          <div class="fact"><strong>Official Website</strong><span>https://jnbkorea2026.github.io/JNB_Coin_Website/</span></div>
         </div>
+        <p class="note">Always verify the official contract address before participating.</p>
       </aside>
     </section>
 
@@ -433,6 +527,7 @@
         <li>JNB Coin does not guarantee profit, price increase, exchange listing, or exchange registration.</li>
         <li>This page does not collect personal data.</li>
         <li>This page does not connect to any wallet.</li>
+        <li>This page does not send transactions.</li>
         <li>This page does not distribute rewards automatically.</li>
         <li>Never enter or share your private key, seed phrase, recovery phrase, or wallet password.</li>
       </ul>
@@ -445,8 +540,9 @@
       </div>
     </section>
 
-    <section class="panel pad">
+    <section class="panel pad confirmation-panel">
       <h2>Required Confirmation</h2>
+      <p>Please confirm every notice before checking your score. These confirmations are evaluated only in this browser page and are not submitted anywhere.</p>
       <div class="checklist" id="confirmations">
         <label class="check-row"><input type="checkbox"><span>I understand that this quiz is not an investment event.</span></label>
         <label class="check-row"><input type="checkbox"><span>I understand that JNB Coin does not guarantee profit, price increase, exchange listing, or exchange registration.</span></label>
@@ -464,8 +560,10 @@
 
       <div class="result" id="resultBox">
         <h2>Result</h2>
-        <p><strong>Score:</strong> <span id="scoreText"></span></p>
-        <p><strong>Educational Result:</strong> <span id="resultText"></span></p>
+        <div class="result-summary">
+          <p><strong>Score:</strong> <span id="scoreText"></span></p>
+          <p><strong>Educational Result:</strong> <span id="resultText"></span></p>
+        </div>
         <p><strong>Important Notice:</strong></p>
         <ul class="notice-list">
           <li>Passing this quiz does not guarantee reward distribution.</li>
@@ -473,6 +571,10 @@
           <li>Rewards may be changed, delayed, reduced, or discontinued.</li>
           <li>Fully automatic instant reward distribution is not used at this stage.</li>
         </ul>
+        <div class="controls">
+          <button id="resetResultButton" class="secondary" type="button">Reset Quiz</button>
+          <a class="home-button secondary" href="./index.html">Back to Official Homepage</a>
+        </div>
       </div>
 
       <div class="answers" id="answersBox">
@@ -483,7 +585,7 @@
 
   <footer class="wrap">
     <section class="panel pad">
-      <h2>Draft Page Notice</h2>
+      <h2>Risk Notice</h2>
       <ul class="footer-list">
         <li>This quiz page is a draft static UI.</li>
         <li>It does not collect submissions.</li>
@@ -491,7 +593,13 @@
         <li>It does not connect to wallets.</li>
         <li>It does not send or distribute JNB.</li>
         <li>Public operation requires legal, privacy, and security review.</li>
+        <li>This is not an investment event.</li>
+        <li>JNB Coin does not guarantee profit, price increase, exchange listing, or exchange registration.</li>
       </ul>
+      <div class="button-row">
+        <a class="home-button" href="./index.html">Back to Official Homepage</a>
+        <button id="resetFooterButton" class="secondary" type="button">Reset Quiz</button>
+      </div>
     </section>
   </footer>
 
@@ -504,14 +612,16 @@
         question: "What is the official project name?",
         options: ["JNB Coin", "JNB Bank", "JNB Exchange", "JNB Wallet"],
         answer: 0,
-        explanation: "The official project name is JNB Coin."
+        explanation: "The official project name is JNB Coin. Always rely on official project information, not similar names used on unknown pages.",
+        safety: "Official information check: confirm the project name together with the official homepage and contract address."
       },
       {
         category: "JNB Coin basic information",
         question: "Which network is JNB Coin deployed on?",
         options: ["Ethereum Mainnet", "Bitcoin Network", "BNB Chain Mainnet", "Solana Mainnet"],
         answer: 2,
-        explanation: "JNB Coin is deployed on BNB Chain Mainnet."
+        explanation: "JNB Coin is deployed on BNB Chain Mainnet as a BEP-20 compatible token.",
+        safety: "Security note: using the wrong network or a copied token may lead to confusion or failed transfers."
       },
       {
         category: "Official contract and website",
@@ -523,7 +633,8 @@
           "A message that promises rewards"
         ],
         answer: 1,
-        explanation: "Users should verify the official website and official contract address before participating."
+        explanation: "Users should verify the official website and official contract address before participating.",
+        safety: "Official information check: compare the full contract address and be careful with look-alike links."
       },
       {
         category: "Wallet security",
@@ -535,7 +646,8 @@
           "A random participant ID"
         ],
         answer: 2,
-        explanation: "Wallet secrets must never be submitted or shared with anyone."
+        explanation: "Wallet secrets must never be submitted or shared with anyone.",
+        safety: "Wallet safety: JNB Coin operators will never ask for private keys, seed phrases, recovery phrases, or wallet passwords."
       },
       {
         category: "Reward program purpose",
@@ -547,7 +659,8 @@
           "To support education, wallet security awareness, and project understanding"
         ],
         answer: 3,
-        explanation: "The program is for education, security awareness, and project understanding."
+        explanation: "The program is for education, security awareness, and project understanding.",
+        safety: "Risk note: this is not an investment event and should not be used to encourage purchase or trading."
       },
       {
         category: "Reward operating policy",
@@ -559,7 +672,8 @@
           "Yes, it guarantees exchange registration"
         ],
         answer: 2,
-        explanation: "Passing the quiz does not guarantee reward distribution. Operator approval is required."
+        explanation: "Passing the quiz does not guarantee reward distribution. Operator approval is required.",
+        safety: "Reward policy note: rewards may be changed, delayed, reduced, or discontinued under the operating policy."
       },
       {
         category: "Reward operating policy",
@@ -571,7 +685,8 @@
           "Trading volume-based distribution"
         ],
         answer: 0,
-        explanation: "The first stage is limited to automated scoring, operator approval, and small batch distribution."
+        explanation: "The first stage is limited to automated scoring, operator approval, and small batch distribution.",
+        safety: "Safety note: fully automatic instant reward distribution is not used at this stage."
       },
       {
         category: "Blockchain and BEP-20 basics",
@@ -583,7 +698,8 @@
           "Only after an exchange listing"
         ],
         answer: 0,
-        explanation: "Public blockchain transactions may be visible on explorers such as BscScan."
+        explanation: "Public blockchain transactions may be visible on explorers such as BscScan.",
+        safety: "Privacy note: a public wallet address can be traceable on public blockchain explorers."
       },
       {
         category: "Privacy and risk notice",
@@ -595,7 +711,8 @@
           "Yes, it confirms exchange listing"
         ],
         answer: 2,
-        explanation: "This quiz is not an investment event and does not guarantee profit, price increase, exchange listing, or exchange registration."
+        explanation: "This quiz is not an investment event and does not guarantee profit, price increase, exchange listing, or exchange registration.",
+        safety: "Risk note: do not treat quiz participation as a profit, price, listing, or registration promise."
       },
       {
         category: "Privacy and risk notice",
@@ -607,7 +724,8 @@
           "Static score calculation in the browser"
         ],
         answer: 1,
-        explanation: "Fully automatic instant reward distribution is on hold until legal, privacy, and security review."
+        explanation: "Fully automatic instant reward distribution is on hold until legal, privacy, and security review.",
+        safety: "Security note: this page does not send transactions or distribute JNB."
       }
     ];
 
@@ -619,6 +737,8 @@
     const answersBox = document.getElementById("answersBox");
     const scoreButton = document.getElementById("scoreButton");
     const resetButton = document.getElementById("resetButton");
+    const resetResultButton = document.getElementById("resetResultButton");
+    const resetFooterButton = document.getElementById("resetFooterButton");
     const confirmations = document.getElementById("confirmations");
 
     function createQuestionCard(item, index) {
@@ -668,6 +788,7 @@
       alertBox.style.display = "block";
       resultBox.style.display = "none";
       answersBox.style.display = "none";
+      alertBox.scrollIntoView({ behavior: "smooth", block: "center" });
     }
 
     function clearAlert() {
@@ -701,9 +822,12 @@
         correct.innerHTML = `<strong>Correct Answer:</strong> ${String.fromCharCode(65 + item.answer)}. ${item.options[item.answer]}`;
 
         const explanation = document.createElement("p");
-        explanation.textContent = item.explanation;
+        explanation.innerHTML = `<strong>Explanation:</strong> ${item.explanation}`;
 
-        div.append(title, correct, explanation);
+        const safety = document.createElement("p");
+        safety.innerHTML = `<strong>Safety Note:</strong> ${item.safety}`;
+
+        div.append(title, correct, explanation, safety);
         answersBox.appendChild(div);
       });
 
@@ -740,6 +864,7 @@
 
       resultBox.style.display = "block";
       renderAnswers(selectedAnswers);
+      resultBox.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
     function resetQuiz() {
@@ -752,12 +877,14 @@
       scoreText.textContent = "";
       resultText.textContent = "";
       resultText.className = "";
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      document.getElementById("quiz").scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
     renderQuiz();
     scoreButton.addEventListener("click", checkScore);
     resetButton.addEventListener("click", resetQuiz);
+    resetResultButton.addEventListener("click", resetQuiz);
+    resetFooterButton.addEventListener("click", resetQuiz);
   </script>
 </body>
 </html>
