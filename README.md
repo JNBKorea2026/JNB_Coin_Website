@@ -34,6 +34,11 @@ Related policy documents:
 - JNB_Coin_Global_Learn_Quiz_Reward_Policy.md
 - JNB_Coin_Global_Learn_Quiz_Reward_Policy_EN.md
 
+## Quiz Page
+
+https://jnbkorea2026.github.io/JNB_Coin_Website/quiz.html
+
+The quiz page is a static educational draft for JNB Global Learn & Quiz Reward. It does not collect personal data, connect wallets, or distribute rewards automatically.
 ## Security
 
 No private keys, seed phrases, recovery phrases, wallet passwords, or .env files are included.

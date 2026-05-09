@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JNB Global Learn & Quiz Reward</title>
+  <meta name="description" content="Static education quiz draft for JNB Global Learn & Quiz Reward.">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #071014;
+      --panel: #0d1b22;
+      --panel-2: #102630;
+      --line: #24424c;
+      --text: #edf7f8;
+      --muted: #a8c1c6;
+      --accent: #35d0ba;
+      --accent-2: #6fb7ff;
+      --warn: #ffd166;
+      --danger: #ff8b8b;
+      --ok: #8ef3c5;
+      --radius: 8px;
+      --shadow: 0 22px 60px rgba(0, 0, 0, 0.28);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(135deg, rgba(53, 208, 186, 0.10), transparent 34%),
+        linear-gradient(315deg, rgba(111, 183, 255, 0.10), transparent 38%);
+      z-index: -1;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(7, 16, 20, 0.88);
+      backdrop-filter: blur(16px);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 68px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .brand img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      border-radius: 50%;
+      filter: drop-shadow(0 10px 20px rgba(53, 208, 186, 0.18));
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 14px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      color: var(--muted);
+    }
+
+    main {
+      padding: 54px 0;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 24px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(13, 27, 34, 0.92);
+      box-shadow: var(--shadow);
+    }
+
+    .pad {
+      padding: 22px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      font-size: clamp(34px, 6vw, 64px);
+    }
+
+    h2 {
+      font-size: clamp(22px, 3vw, 32px);
+      margin-bottom: 14px;
+    }
+
+    h3 {
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      margin: 10px 0 0;
+      color: var(--muted);
+    }
+
+    .subtitle {
+      margin-top: 16px;
+      color: #cfe8eb;
+      font-size: clamp(16px, 2vw, 20px);
+    }
+
+    .label {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .facts {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .fact {
+      display: grid;
+      gap: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 12px;
+      background: rgba(16, 38, 48, 0.75);
+    }
+
+    .fact strong {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .fact span,
+    code.address {
+      overflow-wrap: anywhere;
+      color: var(--text);
+    }
+
+    .notice-list,
+    .footer-list {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    .notice-list li,
+    .footer-list li {
+      margin: 8px 0;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .question {
+      padding: 18px;
+    }
+
+    .question-title {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .tag {
+      border: 1px solid rgba(111, 183, 255, 0.34);
+      border-radius: 999px;
+      padding: 4px 9px;
+      color: #cfe8ff;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 8px 0;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 11px;
+      background: rgba(6, 19, 23, 0.58);
+      cursor: pointer;
+    }
+
+    .option input,
+    .check-row input {
+      margin-top: 5px;
+      accent-color: var(--accent);
+    }
+
+    .option span,
+    .check-row span {
+      color: #dbecee;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-top: 18px;
+    }
+
+    button {
+      border: 1px solid rgba(53, 208, 186, 0.46);
+      border-radius: 8px;
+      padding: 11px 15px;
+      background: #0c272c;
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    button.secondary {
+      border-color: rgba(168, 193, 198, 0.32);
+      background: #0b1b21;
+      color: var(--muted);
+    }
+
+    button:hover {
+      border-color: var(--accent);
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .check-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 11px;
+      background: rgba(16, 38, 48, 0.55);
+    }
+
+    .alert {
+      display: none;
+      margin-top: 14px;
+      border: 1px solid rgba(255, 209, 102, 0.45);
+      border-radius: 8px;
+      padding: 12px;
+      background: rgba(255, 209, 102, 0.10);
+      color: #ffe7a4;
+      font-weight: 700;
+    }
+
+    .result {
+      display: none;
+      margin-top: 18px;
+      border: 1px solid rgba(53, 208, 186, 0.38);
+      border-radius: 8px;
+      padding: 16px;
+      background: rgba(53, 208, 186, 0.08);
+    }
+
+    .result strong {
+      color: var(--text);
+    }
+
+    .pass {
+      color: var(--ok);
+    }
+
+    .review {
+      color: var(--warn);
+    }
+
+    .answers {
+      display: none;
+      margin-top: 24px;
+    }
+
+    .answer-item {
+      margin-top: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 14px;
+      background: rgba(6, 19, 23, 0.58);
+    }
+
+    .answer-item.correct {
+      border-color: rgba(142, 243, 197, 0.36);
+    }
+
+    .answer-item.incorrect {
+      border-color: rgba(255, 139, 139, 0.42);
+    }
+
+    .note {
+      color: var(--warn);
+    }
+
+    footer {
+      padding: 0 0 42px;
+    }
+
+    @media (max-width: 820px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .question-title {
+        display: grid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="wrap">
+      <a class="brand" href="./index.html" aria-label="Back to JNB Coin homepage">
+        <img src="assets/jnb-logo.png" alt="JNB Coin logo">
+        <span>JNB Coin Quiz</span>
+      </a>
+      <div class="nav-links">
+        <a href="./index.html">Back to Official Homepage</a>
+        <a href="#quiz">Quiz</a>
+        <a href="#notices">Notices</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="panel pad">
+        <div class="label">Static UI Draft</div>
+        <h1>JNB Global Learn &amp; Quiz Reward</h1>
+        <p class="subtitle">An education and project understanding quiz for JNB Coin official information, wallet security, blockchain basics, BEP-20 basics, reward policy, privacy, and risk notices.</p>
+        <p class="note">This page calculates scores only inside your browser. It does not collect submissions, store answers, connect to wallets, or distribute JNB.</p>
+      </div>
+
+      <aside class="panel pad">
+        <h2>Project Information</h2>
+        <div class="facts">
+          <div class="fact"><strong>Project Name</strong><span>JNB Coin</span></div>
+          <div class="fact"><strong>Symbol</strong><span>JNB</span></div>
+          <div class="fact"><strong>Network</strong><span>BNB Chain Mainnet</span></div>
+          <div class="fact"><strong>Official Contract Address</strong><code class="address">0x8c8b392318d606193f972c01be213ef5e94116e7</code></div>
+          <div class="fact"><strong>Official Website</strong><span>https://jnbkorea2026.github.io/JNB_Coin_Website/</span></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="panel pad" id="notices">
+      <h2>Required Notices</h2>
+      <ul class="notice-list">
+        <li>This quiz is for education and project understanding only.</li>
+        <li>This is not an investment event.</li>
+        <li>JNB Coin does not guarantee profit, price increase, exchange listing, or exchange registration.</li>
+        <li>This page does not collect personal data.</li>
+        <li>This page does not connect to any wallet.</li>
+        <li>This page does not distribute rewards automatically.</li>
+        <li>Never enter or share your private key, seed phrase, recovery phrase, or wallet password.</li>
+      </ul>
+    </section>
+
+    <section class="grid" id="quiz" aria-live="polite">
+      <div class="panel pad">
+        <h2>Quiz</h2>
+        <p>Answer all 10 questions, confirm the required notices, and select <strong>Check My Score</strong>. A score of 8 or higher is shown as an educational understanding pass, but this does not guarantee reward distribution.</p>
+      </div>
+    </section>
+
+    <section class="panel pad">
+      <h2>Required Confirmation</h2>
+      <div class="checklist" id="confirmations">
+        <label class="check-row"><input type="checkbox"><span>I understand that this quiz is not an investment event.</span></label>
+        <label class="check-row"><input type="checkbox"><span>I understand that JNB Coin does not guarantee profit, price increase, exchange listing, or exchange registration.</span></label>
+        <label class="check-row"><input type="checkbox"><span>I understand that this page does not collect personal data or connect to my wallet.</span></label>
+        <label class="check-row"><input type="checkbox"><span>I understand that I must never submit my private key, seed phrase, recovery phrase, or wallet password.</span></label>
+        <label class="check-row"><input type="checkbox"><span>I understand that passing this quiz does not guarantee reward distribution.</span></label>
+      </div>
+
+      <div class="controls">
+        <button id="scoreButton" type="button">Check My Score</button>
+        <button id="resetButton" class="secondary" type="button">Reset Quiz</button>
+      </div>
+
+      <div class="alert" id="alertBox"></div>
+
+      <div class="result" id="resultBox">
+        <h2>Result</h2>
+        <p><strong>Score:</strong> <span id="scoreText"></span></p>
+        <p><strong>Educational Result:</strong> <span id="resultText"></span></p>
+        <p><strong>Important Notice:</strong></p>
+        <ul class="notice-list">
+          <li>Passing this quiz does not guarantee reward distribution.</li>
+          <li>Operator approval is required before any reward distribution.</li>
+          <li>Rewards may be changed, delayed, reduced, or discontinued.</li>
+          <li>Fully automatic instant reward distribution is not used at this stage.</li>
+        </ul>
+      </div>
+
+      <div class="answers" id="answersBox">
+        <h2>Answers and Explanations</h2>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <section class="panel pad">
+      <h2>Draft Page Notice</h2>
+      <ul class="footer-list">
+        <li>This quiz page is a draft static UI.</li>
+        <li>It does not collect submissions.</li>
+        <li>It does not store answers.</li>
+        <li>It does not connect to wallets.</li>
+        <li>It does not send or distribute JNB.</li>
+        <li>Public operation requires legal, privacy, and security review.</li>
+      </ul>
+    </section>
+  </footer>
+
+  <script>
+    "use strict";
+
+    const questions = [
+      {
+        category: "JNB Coin basic information",
+        question: "What is the official project name?",
+        options: ["JNB Coin", "JNB Bank", "JNB Exchange", "JNB Wallet"],
+        answer: 0,
+        explanation: "The official project name is JNB Coin."
+      },
+      {
+        category: "JNB Coin basic information",
+        question: "Which network is JNB Coin deployed on?",
+        options: ["Ethereum Mainnet", "Bitcoin Network", "BNB Chain Mainnet", "Solana Mainnet"],
+        answer: 2,
+        explanation: "JNB Coin is deployed on BNB Chain Mainnet."
+      },
+      {
+        category: "Official contract and website",
+        question: "What should users verify before participating?",
+        options: [
+          "Only social media comments",
+          "The official website and official contract address",
+          "A random short link",
+          "A message that promises rewards"
+        ],
+        answer: 1,
+        explanation: "Users should verify the official website and official contract address before participating."
+      },
+      {
+        category: "Wallet security",
+        question: "What information should users never submit?",
+        options: [
+          "Quiz answers",
+          "A public wallet address",
+          "Private key, seed phrase, recovery phrase, or wallet password",
+          "A random participant ID"
+        ],
+        answer: 2,
+        explanation: "Wallet secrets must never be submitted or shared with anyone."
+      },
+      {
+        category: "Reward program purpose",
+        question: "What is the purpose of JNB Global Learn & Quiz Reward?",
+        options: [
+          "To encourage token purchase",
+          "To create trading volume",
+          "To support price movement",
+          "To support education, wallet security awareness, and project understanding"
+        ],
+        answer: 3,
+        explanation: "The program is for education, security awareness, and project understanding."
+      },
+      {
+        category: "Reward operating policy",
+        question: "Does passing the quiz guarantee reward distribution?",
+        options: [
+          "Yes, reward distribution is automatic",
+          "Yes, no operator review is needed",
+          "No, operator approval and policy review are required",
+          "Yes, it guarantees exchange registration"
+        ],
+        answer: 2,
+        explanation: "Passing the quiz does not guarantee reward distribution. Operator approval is required."
+      },
+      {
+        category: "Reward operating policy",
+        question: "What is the first-stage reward operation method?",
+        options: [
+          "Automated scoring, operator approval, and small batch distribution",
+          "Private key submission and instant distribution",
+          "Wallet connection and automatic payment",
+          "Trading volume-based distribution"
+        ],
+        answer: 0,
+        explanation: "The first stage is limited to automated scoring, operator approval, and small batch distribution."
+      },
+      {
+        category: "Blockchain and BEP-20 basics",
+        question: "Are blockchain wallet transactions generally public?",
+        options: [
+          "Yes, they may be visible on blockchain explorers",
+          "No, they are always private",
+          "Only if a password is shared",
+          "Only after an exchange listing"
+        ],
+        answer: 0,
+        explanation: "Public blockchain transactions may be visible on explorers such as BscScan."
+      },
+      {
+        category: "Privacy and risk notice",
+        question: "Is this quiz an investment event?",
+        options: [
+          "Yes, it promises profit",
+          "Yes, it guarantees price increase",
+          "No, it is for education and project understanding only",
+          "Yes, it confirms exchange listing"
+        ],
+        answer: 2,
+        explanation: "This quiz is not an investment event and does not guarantee profit, price increase, exchange listing, or exchange registration."
+      },
+      {
+        category: "Privacy and risk notice",
+        question: "What is currently on hold until legal, privacy, and security review?",
+        options: [
+          "Reading official information",
+          "Fully automatic instant reward distribution",
+          "Manual operator review",
+          "Static score calculation in the browser"
+        ],
+        answer: 1,
+        explanation: "Fully automatic instant reward distribution is on hold until legal, privacy, and security review."
+      }
+    ];
+
+    const quizContainer = document.getElementById("quiz");
+    const alertBox = document.getElementById("alertBox");
+    const resultBox = document.getElementById("resultBox");
+    const scoreText = document.getElementById("scoreText");
+    const resultText = document.getElementById("resultText");
+    const answersBox = document.getElementById("answersBox");
+    const scoreButton = document.getElementById("scoreButton");
+    const resetButton = document.getElementById("resetButton");
+    const confirmations = document.getElementById("confirmations");
+
+    function createQuestionCard(item, index) {
+      const article = document.createElement("article");
+      article.className = "panel question";
+
+      const titleWrap = document.createElement("div");
+      titleWrap.className = "question-title";
+
+      const title = document.createElement("h3");
+      title.textContent = `Q${index + 1}. ${item.question}`;
+
+      const tag = document.createElement("span");
+      tag.className = "tag";
+      tag.textContent = item.category;
+
+      titleWrap.append(title, tag);
+      article.append(titleWrap);
+
+      item.options.forEach((option, optionIndex) => {
+        const label = document.createElement("label");
+        label.className = "option";
+
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = `question-${index}`;
+        input.value = String(optionIndex);
+
+        const text = document.createElement("span");
+        text.textContent = `${String.fromCharCode(65 + optionIndex)}. ${option}`;
+
+        label.append(input, text);
+        article.append(label);
+      });
+
+      return article;
+    }
+
+    function renderQuiz() {
+      questions.forEach((item, index) => {
+        quizContainer.appendChild(createQuestionCard(item, index));
+      });
+    }
+
+    function showAlert(message) {
+      alertBox.textContent = message;
+      alertBox.style.display = "block";
+      resultBox.style.display = "none";
+      answersBox.style.display = "none";
+    }
+
+    function clearAlert() {
+      alertBox.textContent = "";
+      alertBox.style.display = "none";
+    }
+
+    function getSelectedAnswers() {
+      return questions.map((_, index) => {
+        const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+        return selected ? Number(selected.value) : null;
+      });
+    }
+
+    function allConfirmationsChecked() {
+      return Array.from(confirmations.querySelectorAll("input[type='checkbox']")).every((input) => input.checked);
+    }
+
+    function renderAnswers(selectedAnswers) {
+      answersBox.innerHTML = "<h2>Answers and Explanations</h2>";
+
+      questions.forEach((item, index) => {
+        const isCorrect = selectedAnswers[index] === item.answer;
+        const div = document.createElement("div");
+        div.className = `answer-item ${isCorrect ? "correct" : "incorrect"}`;
+
+        const title = document.createElement("h3");
+        title.textContent = `Q${index + 1}. ${isCorrect ? "Correct" : "Review Needed"}`;
+
+        const correct = document.createElement("p");
+        correct.innerHTML = `<strong>Correct Answer:</strong> ${String.fromCharCode(65 + item.answer)}. ${item.options[item.answer]}`;
+
+        const explanation = document.createElement("p");
+        explanation.textContent = item.explanation;
+
+        div.append(title, correct, explanation);
+        answersBox.appendChild(div);
+      });
+
+      answersBox.style.display = "block";
+    }
+
+    function checkScore() {
+      clearAlert();
+
+      const selectedAnswers = getSelectedAnswers();
+      if (selectedAnswers.some((answer) => answer === null)) {
+        showAlert("Please answer all questions before checking your score.");
+        return;
+      }
+
+      if (!allConfirmationsChecked()) {
+        showAlert("Please confirm all required notices before checking your score.");
+        return;
+      }
+
+      const score = selectedAnswers.reduce((total, answer, index) => {
+        return total + (answer === questions[index].answer ? 1 : 0);
+      }, 0);
+
+      scoreText.textContent = `${score} / ${questions.length}`;
+
+      if (score >= 8) {
+        resultText.textContent = "Pass - Passed for educational understanding check. This does not guarantee reward distribution.";
+        resultText.className = "pass";
+      } else {
+        resultText.textContent = "Review Needed - Please review the official information and try again.";
+        resultText.className = "review";
+      }
+
+      resultBox.style.display = "block";
+      renderAnswers(selectedAnswers);
+    }
+
+    function resetQuiz() {
+      document.querySelectorAll("input[type='radio'], input[type='checkbox']").forEach((input) => {
+        input.checked = false;
+      });
+      clearAlert();
+      resultBox.style.display = "none";
+      answersBox.style.display = "none";
+      scoreText.textContent = "";
+      resultText.textContent = "";
+      resultText.className = "";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    renderQuiz();
+    scoreButton.addEventListener("click", checkScore);
+    resetButton.addEventListener("click", resetQuiz);
+  </script>
+</body>
+</html>
